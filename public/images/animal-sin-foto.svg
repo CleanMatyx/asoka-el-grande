@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="titulo descripcion">
+  <title id="titulo">Animal de Asoka el Grande</title><desc id="descripcion">Imagen de reserva cuando el animal aún no tiene fotografías.</desc>
+  <rect width="800" height="600" fill="#fef3c7"/><circle cx="400" cy="300" r="150" fill="#d97706" opacity=".16"/>
+  <path d="M330 285c-38-42-103 7-60 62l130 130 130-130c43-55-22-104-60-62-15 17-30 35-70 35s-55-18-70-35Z" fill="#b45309"/>
+</svg>

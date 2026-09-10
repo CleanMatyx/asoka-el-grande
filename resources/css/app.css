@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[x-cloak] {
+    display: none !important;
+}
+
+.paw-pattern {
+    background-image:
+        radial-gradient(
+            circle at 20% 20%,
+            rgb(98 197 243 / 0.12) 2px,
+            transparent 3px
+        ),
+        radial-gradient(
+            circle at 80% 60%,
+            rgb(108 70 117 / 0.08) 2px,
+            transparent 3px
+        );
+    background-size: 60px 60px;
+}
+.card-hover {
+    transition:
+        transform 250ms ease,
+        box-shadow 250ms ease;
+}
+.card-hover:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgb(98 197 243 / 0.28);
+}
+
+.asoka-franja {
+    background: linear-gradient(to right, #fff 10%, #aad7ff 40%, #add9ff 100%);
+}
+
+body > div:first-of-type {
+    background: linear-gradient(
+        to right,
+        #fff 10%,
+        #aad7ff 40%,
+        #add9ff 100%
+    ) !important;
+}
+.bg-amber-50,
+.bg-amber-100 {
+    background-color: #ecf3f9 !important;
+}
+.text-amber-300 {
+    color: #add9ff !important;
+}
+.text-amber-800,
+.text-amber-900,
+.text-amber-950 {
+    color: #407ca6 !important;
+}
+.bg-amber-700 {
+    background-color: #24b3fe !important;
+}
+.hover\\:bg-amber-800:hover {
+    background-color: #62c5f3 !important;
+}
+.focus\\:ring-amber-400:focus {
+    --tw-ring-color: #62c5f3 !important;
+}
+#contenido > section:first-child {
+    background: linear-gradient(135deg, #0f73cd 0%, #62c5f3 100%) !important;
+}
+
+.logo-asoka {
+    height: 13rem;
+    width: 32rem;
+}
+
+.logo-asoka__imagen {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    object-position: left top;
+    transition: opacity 450ms ease-in-out;
+}
+
+.logo-asoka__imagen--sin-fondo {
+    transform: translateY(-30px);
+}
