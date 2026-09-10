@@ -8,12 +8,6 @@
         class="paw-pattern bg-gradient-to-br from-asoka-100 to-asoka-50 py-14"
     >
         <div class="container mx-auto px-4">
-            <nav class="mb-3 text-sm text-slate-600" aria-label="Migas de pan">
-                <a href="{{ route('inicio') }}" class="hover:text-asoka-600"
-                    >Inicio</a
-                ><span class="mx-2">/</span
-                ><span class="font-semibold text-asoka-700">Adopciones</span>
-            </nav>
             <h1
                 class="font-display text-4xl font-bold text-asoka-800 md:text-5xl"
             >

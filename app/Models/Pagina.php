@@ -124,7 +124,24 @@ class Pagina extends Model
 
     public function tieneCambiosSinPublicar(): bool
     {
-        return $this->publicado && $this->version_publicada !== $this->versionBorrador();
+        if (! $this->publicado) {
+            return false;
+        }
+
+        if (! is_array($this->version_publicada)) {
+            return true;
+        }
+
+        return $this->normalizarVersion($this->version_publicada) !== $this->normalizarVersion($this->versionBorrador());
+    }
+
+    public function estadoEdicion(): string
+    {
+        if (! $this->publicado) {
+            return 'Oculta';
+        }
+
+        return $this->tieneCambiosSinPublicar() ? 'Cambios sin publicar' : 'Publicada';
     }
 
     public function tokenParaPrevisualizar(): string
@@ -134,5 +151,24 @@ class Pagina extends Model
         }
 
         return $this->token_previsualizacion;
+    }
+
+    private function normalizarVersion(mixed $valor): mixed
+    {
+        if (! is_array($valor)) {
+            return $valor;
+        }
+
+        if (array_is_list($valor)) {
+            return array_map(fn (mixed $elemento): mixed => $this->normalizarVersion($elemento), $valor);
+        }
+
+        ksort($valor);
+
+        foreach ($valor as $clave => $elemento) {
+            $valor[$clave] = $this->normalizarVersion($elemento);
+        }
+
+        return $valor;
     }
 }

@@ -32,22 +32,21 @@
                 <a
                     href="{{ route('animales.mostrar', $animal->slug) }}"
                     class="overflow-hidden rounded-2xl bg-white shadow-sm"
-                ><img
+                    ><img
                         src="{{ filled($animal->galeria[0] ?? null) ? Storage::disk('public')->url($animal->galeria[0]) : asset('images/animal-sin-foto.png') }}"
                         alt="{{ $animal->nombre }}"
                         class="aspect-square w-full object-cover"
                     /><span
                         class="block p-4 text-xl font-bold text-asoka-900"
-                    >{{ $animal->nombre }}</span
+                        >{{ $animal->nombre }}</span
                     >
                     @if ($esUrgente)
                         <span
                             class="mx-4 mb-4 inline-block rounded-full bg-rose-100 px-2.5 py-1 text-xs font-bold text-rose-900"
-                        >{{ $animal->estado === 'caso_especial' ? 'Caso especial' : 'Ayuda urgente' }}</span
+                            >{{ $animal->estado === 'caso_especial' ? 'Caso especial' : 'Ayuda urgente' }}</span
                         >
                     @endif
                 </a>
-                >
             @empty
                 @for ($i = 0; $i < 4; $i++)
                     <div class="rounded-2xl bg-white p-4 shadow-sm">
@@ -55,7 +54,7 @@
                             class="aspect-square rounded-xl bg-asoka-100"
                         ></div>
                         <span class="mt-3 block font-bold text-asoka-900"
-                        >Animal destacado</span
+                            >Animal destacado</span
                         >
                     </div>
                 @endfor

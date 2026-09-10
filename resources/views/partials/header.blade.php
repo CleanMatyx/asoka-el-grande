@@ -96,7 +96,7 @@
             x-transition:leave="transition duration-250 ease-in"
             x-transition:leave-start="translate-y-0 scale-100 opacity-100"
             x-transition:leave-end="-translate-y-3 scale-95 opacity-0"
-            class="ml-auto hidden origin-top-right items-center lg:flex"
+            class="relative z-10 ml-auto hidden origin-top-right items-center lg:flex"
             aria-label="Navegación principal"
         >
             @foreach ($seccionesCabecera as $seccion)
@@ -154,7 +154,7 @@
             @click="movil = !movil"
             :aria-expanded="movil"
             aria-controls="menu-movil"
-            class="ml-auto p-2 text-2xl text-asoka-600 lg:hidden"
+            class="relative z-10 ml-auto p-2 text-2xl text-asoka-600 lg:hidden"
         >
             <span class="sr-only">Abrir navegación</span
             ><i class="fas fa-bars" aria-hidden="true"></i>

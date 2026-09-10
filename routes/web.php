@@ -3,6 +3,7 @@
 use App\Http\Controllers\ControladorAnimal;
 use App\Http\Controllers\ControladorDonacion;
 use App\Http\Controllers\ControladorInicio;
+use App\Http\Controllers\ControladorNoticia;
 use App\Http\Controllers\ControladorPagina;
 use App\Http\Controllers\ControladorSolicitudAdopcion;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,9 @@ Route::get('/apadrinar', [ControladorDonacion::class, 'apadrinar'])->name('apadr
 Route::post('/apadrinar', [ControladorDonacion::class, 'iniciarApadrinamiento'])
     ->name('apadrinamientos.iniciar')
     ->middleware('throttle:10,1');
+
+Route::get('/noticias', [ControladorNoticia::class, 'index'])->name('noticias.index');
+Route::get('/noticias/{slug}', [ControladorNoticia::class, 'mostrar'])->name('noticias.mostrar');
 
 Route::get('/previsualizar/{token}', [ControladorPagina::class, 'previsualizar'])
     ->name('paginas.previsualizar');

@@ -22,12 +22,20 @@ class PrevisualizadorModulo
                 'modoPrevisualizacion' => true,
             ])->render();
 
+            $altura = match ($tipo) {
+                'migas-pan' => 92,
+                'imagen-texto' => 560,
+                'galeria', 'inicio-hero-buscador', 'tarjeta-informativa' => 500,
+                'carrusel-fotos' => 440,
+                default => 360,
+            };
+
             $css = e(Vite::asset('resources/css/app.css'));
             $documento = <<<HTML
 <!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="{$css}"><style>body{margin:0;background:#fff}.vista-previa-modulo{pointer-events:none}</style></head><body><div class="vista-previa-modulo">{$html}</div></body></html>
 HTML;
 
-            return new HtmlString('<iframe title="Vista previa del módulo" sandbox srcdoc="'.e($documento).'" style="display:block;width:100%;height:360px;border:1px solid #d1d5db;border-radius:.75rem;background:#fff"></iframe>');
+            return new HtmlString('<iframe title="Vista previa del módulo" sandbox srcdoc="'.e($documento).'" style="display:block;width:100%;height:'.$altura.'px;border:1px solid #d1d5db;border-radius:.75rem;background:#fff"></iframe>');
         } catch (Throwable $exception) {
             report($exception);
 

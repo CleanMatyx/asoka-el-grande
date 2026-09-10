@@ -81,3 +81,77 @@ body > div:first-of-type {
 .logo-asoka__imagen--sin-fondo {
     transform: translateY(-30px);
 }
+
+.contenido-imagen-texto,
+.contenido-enriquecido {
+    color: #334155;
+    font-size: 1.0625rem;
+    line-height: 1.8;
+}
+
+.contenido-imagen-texto h2,
+.contenido-imagen-texto h3,
+.contenido-imagen-texto h4,
+.contenido-enriquecido h2,
+.contenido-enriquecido h3,
+.contenido-enriquecido h4 {
+    color: #407ca6;
+    font-family: Fredoka, Nunito, sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.contenido-imagen-texto h2,
+.contenido-enriquecido h2 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.875rem;
+}
+
+.contenido-imagen-texto h3,
+.contenido-enriquecido h3 {
+    margin-top: 1.35rem;
+    margin-bottom: 0.65rem;
+    font-size: 1.5rem;
+}
+
+.contenido-imagen-texto h4,
+.contenido-enriquecido h4 {
+    margin-top: 1.15rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+}
+
+.contenido-imagen-texto p,
+.contenido-imagen-texto ul,
+.contenido-imagen-texto ol,
+.contenido-enriquecido p,
+.contenido-enriquecido ul,
+.contenido-enriquecido ol {
+    margin-bottom: 1rem;
+}
+
+.contenido-imagen-texto ul,
+.contenido-imagen-texto ol,
+.contenido-enriquecido ul,
+.contenido-enriquecido ol {
+    padding-left: 1.5rem;
+}
+
+.contenido-imagen-texto ul,
+.contenido-enriquecido ul {
+    list-style: disc;
+}
+
+.contenido-imagen-texto ol,
+.contenido-enriquecido ol {
+    list-style: decimal;
+}
+
+.contenido-imagen-texto a:not(.group),
+.contenido-enriquecido a:not(.group) {
+    color: #0f73cd;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+}
