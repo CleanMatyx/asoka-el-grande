@@ -1,5 +1,10 @@
-@php ($imagen = filled($bloque['imagen'] ?? null) ? Storage::disk('public')->url($bloque['imagen']) : ($bloque['imagen_url'] ?? asset('images/animal-sin-foto.png')))
-<section class="bg-asoka-50 py-12 sm:py-16">
+@php
+    use App\Support\ColorModulo;
+
+    $imagen = filled($bloque['imagen'] ?? null) ? Storage::disk('public')->url($bloque['imagen']) : ($bloque['imagen_url'] ?? asset('images/animal-sin-foto.png'));
+    $colorFondo = ColorModulo::fondo($bloque['color_fondo'] ?? null);
+@endphp
+<section class="py-12 sm:py-16" style="background-color: {{ $colorFondo }}">
     <div
         class="container mx-auto grid max-w-6xl items-center gap-8 px-4 md:grid-cols-2"
     >
@@ -19,7 +24,7 @@
                 <a
                     href="{{ $bloque['url_boton'] ?? '#' }}"
                     class="mt-6 inline-flex rounded-xl bg-asoka-600 px-5 py-3 font-bold text-white"
-                    >{{ $bloque['texto_boton'] }}</a
+                >{{ $bloque['texto_boton'] }}</a
                 >
             @endif
         </div>

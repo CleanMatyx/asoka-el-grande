@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pagina;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Cache;
 
 class ControladorPagina extends Controller
 {
@@ -11,7 +12,7 @@ class ControladorPagina extends Controller
     {
         $pagina = Pagina::query()
             ->publicadas()
-            ->where('clave', $clave)
+            ->conClavePublicada($clave)
             ->firstOrFail();
 
         return view('paginas.mostrar', compact('pagina'));
@@ -26,6 +27,21 @@ class ControladorPagina extends Controller
         return view('paginas.mostrar', [
             'pagina' => $pagina,
             'previsualizacion' => true,
+        ]);
+    }
+
+    public function previsualizarTemporal(string $token): View
+    {
+        $previsualizacion = Cache::get("previsualizacion-pagina:{$token}");
+        abort_unless(is_array($previsualizacion), 404);
+
+        $pagina = Pagina::query()->findOrFail($previsualizacion['pagina_id']);
+        $pagina->forceFill($previsualizacion['datos']);
+
+        return view('paginas.mostrar', [
+            'pagina' => $pagina,
+            'previsualizacion' => true,
+            'esInicio' => ($previsualizacion['datos']['clave'] ?? null) === 'inicio',
         ]);
     }
 }

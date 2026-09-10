@@ -19,6 +19,8 @@ class Pagina extends Model
         'pagina_base_id',
         'bloques',
         'bloques_publicados',
+        'version_publicada',
+        'publicado_en',
         'token_previsualizacion',
         'meta_titulo',
         'meta_descripcion',
@@ -31,6 +33,8 @@ class Pagina extends Model
             'publicado' => 'boolean',
             'bloques' => 'array',
             'bloques_publicados' => 'array',
+            'version_publicada' => 'array',
+            'publicado_en' => 'datetime',
         ];
     }
 
@@ -44,6 +48,17 @@ class Pagina extends Model
         return $query->where('publicado', true);
     }
 
+    public function scopeConClavePublicada(Builder $query, string $clave): Builder
+    {
+        return $query->where(function (Builder $consulta) use ($clave): void {
+            $consulta
+                ->where('version_publicada->clave', $clave)
+                ->orWhere(function (Builder $legado) use ($clave): void {
+                    $legado->whereNull('version_publicada')->where('clave', $clave);
+                });
+        });
+    }
+
     public function paginaBase(): BelongsTo
     {
         return $this->belongsTo(self::class, 'pagina_base_id');
@@ -51,9 +66,12 @@ class Pagina extends Model
 
     public function bloquesParaMostrar(bool $previsualizacion = false): array
     {
-        $propiedad = $previsualizacion ? 'bloques' : 'bloques_publicados';
-        $propios = $this->{$propiedad} ?? ($this->bloques ?? []);
-        $base = $this->paginaBase?->bloquesParaMostrar($previsualizacion) ?? [];
+        $version = $this->versionParaMostrar($previsualizacion);
+        $propios = $version['bloques'] ?? [];
+        $paginaBaseId = $version['pagina_base_id'] ?? null;
+        $base = $paginaBaseId
+            ? (self::query()->find($paginaBaseId)?->bloquesParaMostrar($previsualizacion) ?? [])
+            : [];
 
         return collect([...$base, ...$propios])
             ->filter(fn (array $bloque): bool => $bloque['visible'] ?? true)
@@ -63,10 +81,50 @@ class Pagina extends Model
 
     public function publicarBloques(): void
     {
+        $this->publicarVersion();
+    }
+
+    public function versionBorrador(): array
+    {
+        return [
+            'clave' => $this->clave,
+            'titulo' => $this->titulo,
+            'subtitulo' => $this->subtitulo,
+            'contenido' => $this->contenido,
+            'pagina_base_id' => $this->pagina_base_id,
+            'bloques' => $this->bloques ?? [],
+            'meta_titulo' => $this->meta_titulo,
+            'meta_descripcion' => $this->meta_descripcion,
+        ];
+    }
+
+    public function versionParaMostrar(bool $previsualizacion = false): array
+    {
+        if ($previsualizacion) {
+            return $this->versionBorrador();
+        }
+
+        return $this->version_publicada ?? [
+            ...$this->versionBorrador(),
+            'bloques' => $this->bloques_publicados ?? $this->bloques ?? [],
+        ];
+    }
+
+    public function publicarVersion(): void
+    {
+        $version = $this->versionBorrador();
+
         $this->forceFill([
-            'bloques_publicados' => $this->bloques ?? [],
+            'bloques_publicados' => $version['bloques'],
+            'version_publicada' => $version,
             'publicado' => true,
+            'publicado_en' => now(),
         ])->save();
+    }
+
+    public function tieneCambiosSinPublicar(): bool
+    {
+        return $this->publicado && $this->version_publicada !== $this->versionBorrador();
     }
 
     public function tokenParaPrevisualizar(): string

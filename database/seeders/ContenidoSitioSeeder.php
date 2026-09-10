@@ -36,6 +36,7 @@ class ContenidoSitioSeeder extends Seeder
                     [
                         'tipo' => 'inicio-hero-buscador',
                         'visible' => true,
+                        'color_fondo' => '#0f172a',
                         'etiqueta' => 'Protectora de animales · Alicante',
                         'titulo' => 'Cada mirada merece un hogar. La tuya puede cambiarlo todo.',
                         'contenido' => 'Conoce a los animales que esperan una segunda oportunidad, ofrece acogida temporal o ayuda a que nunca les falte cuidado.',
@@ -44,6 +45,7 @@ class ContenidoSitioSeeder extends Seeder
                     [
                         'tipo' => 'animales-destacados',
                         'visible' => true,
+                        'color_fondo' => '#f7fcfe',
                         'etiqueta' => 'Prioridad',
                         'titulo' => 'Necesitan tu ayuda hoy',
                         'fuente_animales' => 'urgentes',
@@ -52,6 +54,7 @@ class ContenidoSitioSeeder extends Seeder
                     [
                         'tipo' => 'formas-ayudar',
                         'visible' => true,
+                        'color_fondo' => '#ecf3f9',
                         'etiqueta' => 'Tu ayuda transforma vidas',
                         'titulo' => 'Hay muchas formas de estar a su lado',
                         'tarjetas' => [
@@ -63,6 +66,7 @@ class ContenidoSitioSeeder extends Seeder
                     [
                         'tipo' => 'animales-destacados',
                         'visible' => true,
+                        'color_fondo' => '#f7fcfe',
                         'etiqueta' => 'Recién llegados',
                         'titulo' => 'Últimos Asoketes en adopción',
                         'fuente_animales' => 'ultimos',
@@ -71,6 +75,7 @@ class ContenidoSitioSeeder extends Seeder
                     [
                         'tipo' => 'estadisticas',
                         'visible' => true,
+                        'color_fondo' => '#0f172a',
                         'etiqueta' => 'Transparencia',
                         'titulo' => 'Nuestra labor en cifras',
                     ],

@@ -1,8 +1,11 @@
 @php
+    use App\Models\Animal;
+    use App\Support\ColorModulo;
+
     $fuente = $bloque['fuente_animales'] ?? 'ultimos';
     $animales = $modoPrevisualizacion
         ? collect()
-        : \App\Models\Animal::query()
+        : Animal::query()
             ->when(
                 $fuente === 'urgentes',
                 fn ($consulta) => $consulta->whereIn('estado', ['caso_especial', 'invisible']),
@@ -12,8 +15,9 @@
             ->limit((int) ($bloque['limite'] ?? 4))
             ->get();
     $esUrgente = $fuente === 'urgentes';
+    $colorFondo = ColorModulo::fondo($bloque['color_fondo'] ?? null);
 @endphp
-<section class="bg-asoka-50 py-12 sm:py-16">
+<section class="py-12 sm:py-16" style="background-color: {{ $colorFondo }}">
     <div class="container mx-auto max-w-6xl px-4">
         @if (filled($bloque['etiqueta'] ?? null))
             <p
@@ -28,18 +32,18 @@
                 <a
                     href="{{ route('animales.mostrar', $animal->slug) }}"
                     class="overflow-hidden rounded-2xl bg-white shadow-sm"
-                    ><img
+                ><img
                         src="{{ filled($animal->galeria[0] ?? null) ? Storage::disk('public')->url($animal->galeria[0]) : asset('images/animal-sin-foto.png') }}"
                         alt="{{ $animal->nombre }}"
                         class="aspect-square w-full object-cover"
                     /><span
                         class="block p-4 text-xl font-bold text-asoka-900"
-                        >{{ $animal->nombre }}</span
+                    >{{ $animal->nombre }}</span
                     >
                     @if ($esUrgente)
                         <span
                             class="mx-4 mb-4 inline-block rounded-full bg-rose-100 px-2.5 py-1 text-xs font-bold text-rose-900"
-                            >{{ $animal->estado === 'caso_especial' ? 'Caso especial' : 'Ayuda urgente' }}</span
+                        >{{ $animal->estado === 'caso_especial' ? 'Caso especial' : 'Ayuda urgente' }}</span
                         >
                     @endif
                 </a>
@@ -51,7 +55,7 @@
                             class="aspect-square rounded-xl bg-asoka-100"
                         ></div>
                         <span class="mt-3 block font-bold text-asoka-900"
-                            >Animal destacado</span
+                        >Animal destacado</span
                         >
                     </div>
                 @endfor

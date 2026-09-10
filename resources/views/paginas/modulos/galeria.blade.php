@@ -1,5 +1,10 @@
-@php ($imagenes = collect($bloque['imagenes'] ?? [])->filter()->values())
-<section class="bg-white py-12 sm:py-16">
+@php
+    use App\Support\ColorModulo;
+
+    $imagenes = collect($bloque['imagenes'] ?? [])->filter()->values();
+    $colorFondo = ColorModulo::fondo($bloque['color_fondo'] ?? null);
+@endphp
+<section class="py-12 sm:py-16" style="background-color: {{ $colorFondo }}">
     <div class="container mx-auto max-w-6xl px-4">
         @if (filled($bloque['titulo'] ?? null))
             <h2 class="font-display text-3xl font-bold text-asoka-900">

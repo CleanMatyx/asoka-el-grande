@@ -63,10 +63,6 @@ body > div:first-of-type {
 .focus\\:ring-amber-400:focus {
     --tw-ring-color: #62c5f3 !important;
 }
-#contenido > section:first-child {
-    background: linear-gradient(135deg, #0f73cd 0%, #62c5f3 100%) !important;
-}
-
 .logo-asoka {
     height: 13rem;
     width: 32rem;

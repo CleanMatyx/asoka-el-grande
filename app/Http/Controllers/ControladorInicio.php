@@ -13,7 +13,7 @@ class ControladorInicio extends Controller
     {
         $paginaInicio = Pagina::query()
             ->publicadas()
-            ->where('clave', 'inicio')
+            ->conClavePublicada('inicio')
             ->first();
 
         if ($paginaInicio) {

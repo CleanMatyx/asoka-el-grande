@@ -1,5 +1,10 @@
-@php ($contacto = $ajustesSitio ?? AppModelsAjusteSitio::actual())
-<section class="bg-white py-12 sm:py-16">
+@php
+    use App\Models\AjusteSitio;
+    use App\Support\ColorModulo;
+    $contacto = $ajustesSitio ?? AjusteSitio::actual();
+    $colorFondo = ColorModulo::fondo($bloque['color_fondo'] ?? null);
+@endphp
+<section class="py-12 sm:py-16" style="background-color: {{ $colorFondo }}">
     <div class="container mx-auto max-w-4xl px-4 text-center">
         <h2 class="font-display text-3xl font-bold text-asoka-900">
             {{ $bloque['titulo'] ?? 'Contacta con Asoka' }}
@@ -11,7 +16,9 @@
             class="mx-auto mt-7 max-w-xl rounded-2xl bg-asoka-50 p-6 text-left text-slate-700"
         >
             @if ($contacto->email_contacto)
-                <p><strong>Correo:</strong> <a class="text-asoka-700 underline" href="mailto:{{ $contacto->email_contacto }}">{{ $contacto->email_contacto }}</a></p>
+                <p><strong>Correo:</strong> <a class="text-asoka-700 underline"
+                                               href="mailto:{{ $contacto->email_contacto }}">{{ $contacto->email_contacto }}</a>
+                </p>
             @endif
             @if ($contacto->telefono_alicante)
                 <p class="mt-2"><strong>Teléfono:</strong> {{ $contacto->telefono_alicante }}</p>

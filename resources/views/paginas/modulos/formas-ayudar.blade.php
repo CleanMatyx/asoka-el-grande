@@ -1,4 +1,6 @@
 @php
+    use App\Support\ColorModulo;
+
     $tarjetas = collect($bloque['tarjetas'] ?? []);
 
     if ($tarjetas->isEmpty()) {
@@ -8,9 +10,10 @@
             ['titulo' => 'Donación rápida', 'texto' => 'Colabora mediante Bizum, tarjeta con Stripe o Teaming por 1 € al mes.', 'texto_boton' => 'Hacer una donación', 'url_boton' => '/donar', 'estilo' => 'destacado'],
         ]);
     }
+    $colorFondo = ColorModulo::fondo($bloque['color_fondo'] ?? null);
 @endphp
 
-<section id="ayudar" class="bg-amber-100 py-14">
+<section id="ayudar" class="py-14" style="background-color: {{ $colorFondo }}">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         @if (filled($bloque['etiqueta'] ?? null))
             <p class="font-bold uppercase tracking-wider text-amber-900">{{ $bloque['etiqueta'] }}</p>
@@ -34,7 +37,7 @@
                         <a
                             href="{{ $modoPrevisualizacion ? '#' : ($tarjeta['url_boton'] ?? '#') }}"
                             class="mt-5 inline-block font-bold underline {{ $destacada ? 'text-amber-300' : 'text-amber-800' }}"
-                            >{{ $tarjeta['texto_boton'] }}</a
+                        >{{ $tarjeta['texto_boton'] }}</a
                         >
                     @endif
                 </article>

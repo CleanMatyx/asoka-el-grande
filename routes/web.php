@@ -37,6 +37,9 @@ Route::post('/apadrinar', [ControladorDonacion::class, 'iniciarApadrinamiento'])
 Route::get('/previsualizar/{token}', [ControladorPagina::class, 'previsualizar'])
     ->name('paginas.previsualizar');
 
+Route::get('/previsualizar-borrador/{token}', [ControladorPagina::class, 'previsualizarTemporal'])
+    ->name('paginas.previsualizar-temporal');
+
 Route::get('/{clave}', [ControladorPagina::class, 'mostrar'])
     ->where('clave', '^(?!admin$|animales$|donar$|apadrinar$|webhooks$|up$)[a-z0-9-]+$')
     ->name('paginas.mostrar');

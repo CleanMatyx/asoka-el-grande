@@ -9,10 +9,10 @@
 <form
     action="{{ route('animales.catalogo') }}"
     method="GET"
-    class="rounded-2xl bg-white p-5 shadow-xl"
+    class="rounded-2xl bg-white p-5 text-slate-800 shadow-xl"
     aria-label="Buscar un animal"
 >
-    <h2 class="text-xl font-extrabold">
+    <h2 class="text-xl font-extrabold text-slate-900">
         {{ $bloque['titulo_buscador'] ?? 'Busca a tu compañero' }}
     </h2>
     <div class="mt-4 grid gap-3 sm:grid-cols-2">
@@ -24,7 +24,7 @@
                         type="search"
                         name="buscar"
                         placeholder="{{ $campo['texto_vacio'] ?? '' }}"
-                        class="mt-1 w-full rounded-lg border-slate-300"
+                        class="mt-1 w-full rounded-lg border-slate-300 bg-white text-slate-900 placeholder:text-slate-500"
                     />
                 </label>
             @else
@@ -34,7 +34,7 @@
                     {{ $campo['etiqueta'] ?? '' }}
                     <select
                         name="{{ $campo['nombre'] ?? '' }}"
-                        class="mt-1 w-full rounded-lg border-slate-300"
+                        class="mt-1 w-full rounded-lg border-slate-300 bg-white text-slate-900"
                     >
                         <option value="">
                             {{ $campo['texto_vacio'] ?? 'Cualquiera' }}

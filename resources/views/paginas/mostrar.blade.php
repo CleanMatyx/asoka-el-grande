@@ -1,17 +1,21 @@
 @extends ('layouts.app')
 
-@section ('title', $pagina->meta_titulo ?: $pagina->titulo)
-@section ('meta_description', $pagina->meta_descripcion ?: ($pagina->subtitulo ?: 'Información de Asoka el Grande, protectora de animales en Alicante.'))
+@php
+    $versionPagina = $pagina->versionParaMostrar($previsualizacion ?? false);
+@endphp
+
+@section ('title', $versionPagina['meta_titulo'] ?: $versionPagina['titulo'])
+@section ('meta_description', $versionPagina['meta_descripcion'] ?: ($versionPagina['subtitulo'] ?: 'Información de Asoka el Grande, protectora de animales en Alicante.'))
 
 @push ('meta')
     @php
-        $descripcion = $pagina->meta_descripcion ?: ($pagina->subtitulo ?: strip_tags($pagina->contenido ?: ''));
-        $schemaPagina = ['@context' => 'https://schema.org', '@type' => 'WebPage', 'name' => $pagina->titulo, 'description' => $descripcion, 'url' => ($esInicio ?? false) ? url('/') : url('/' . $pagina->clave)];
+        $descripcion = $versionPagina['meta_descripcion'] ?: ($versionPagina['subtitulo'] ?: strip_tags($versionPagina['contenido'] ?: ''));
+        $schemaPagina = ['@context' => 'https://schema.org', '@type' => 'WebPage', 'name' => $versionPagina['titulo'], 'description' => $descripcion, 'url' => ($esInicio ?? false) ? url('/') : url('/' . $versionPagina['clave'])];
     @endphp
     <meta property="og:type" content="website" />
     <meta
         property="og:title"
-        content="{{ $pagina->meta_titulo ?: $pagina->titulo }}"
+        content="{{ $versionPagina['meta_titulo'] ?: $versionPagina['titulo'] }}"
     />
     <meta property="og:description" content="{{ $descripcion }}" />
     <script type="application/ld+json">
@@ -32,10 +36,10 @@
                 <h1
                     class="font-display text-4xl font-bold text-asoka-900 sm:text-5xl"
                 >
-                    {{ $pagina->titulo }}
+                    {{ $versionPagina['titulo'] }}
                 </h1>
-                @if ($pagina->subtitulo)
-                    <p class="mx-auto mt-4 max-w-3xl text-lg leading-8 text-slate-700">{{ $pagina->subtitulo }}</p>
+                @if ($versionPagina['subtitulo'])
+                    <p class="mx-auto mt-4 max-w-3xl text-lg leading-8 text-slate-700">{{ $versionPagina['subtitulo'] }}</p>
                 @endif
             </div>
         </section>
@@ -43,7 +47,7 @@
             <div
                 class="prose prose-lg max-w-none prose-headings:font-display prose-headings:text-asoka-900 prose-a:text-asoka-700 hover:prose-a:text-asoka-900"
             >
-                {!! $pagina->contenido !!}
+                {!! $versionPagina['contenido'] !!}
             </div>
         </article>
     @endif

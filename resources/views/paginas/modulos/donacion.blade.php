@@ -1,4 +1,9 @@
-<section class="bg-asoka-100 py-12 sm:py-16">
+@php
+    use App\Support\ColorModulo;
+    $colorFondo = ColorModulo::fondo($bloque['color_fondo'] ?? null);
+@endphp
+
+<section class="py-12 sm:py-16" style="background-color: {{ $colorFondo }}">
     <div class="container mx-auto max-w-4xl px-4 text-center">
         <h2 class="font-display text-3xl font-bold text-asoka-900">
             {{ $bloque['titulo'] ?? 'Ayúdanos a seguir cuidando' }}
@@ -10,11 +15,11 @@
             <a
                 href="{{ route('donaciones.donar') }}"
                 class="rounded-xl bg-asoka-600 px-5 py-3 font-bold text-white"
-                >Hacer una donación</a
+            >Hacer una donación</a
             ><a
                 href="{{ route('apadrinamientos.crear') }}"
                 class="rounded-xl border-2 border-asoka-600 px-5 py-3 font-bold text-asoka-800"
-                >Apadrinar</a
+            >Apadrinar</a
             >
         </div>
     </div>
